@@ -11,6 +11,10 @@
 #include "hardware/i2c.h"
 #include "registers.h"
 
+#ifdef __cplusplus
+extern "C" {
+#endif
+
 /** \file ads1115.h
  * \brief Library for using an ADS1115 analog-to-digital converter with
  * the Raspberry Pi Pico
@@ -113,5 +117,9 @@ void ads1115_set_input_mux(enum ads1115_mux_t mux, ads1115_adc_t *adc);
 // void set_comparator_polarity();
 // void set_comparator_latching();
 // void set_comparator_queue();
+
+#ifdef __cplusplus
+}
+#endif
 
 #endif
