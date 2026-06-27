@@ -31,7 +31,7 @@ void ads1115_read_adc(uint16_t *adc_value, ads1115_adc_t *adc){
         // Wait until the conversion finishes before reading the value
         do {
             ads1115_read_config(adc);
-        } while (adc->config & ADS1115_STATUS_MASK == ADS1115_STATUS_BUSY)
+        } while (adc->config & ADS1115_STATUS_MASK == ADS1115_STATUS_BUSY);
     }
 
     // Now read the value from last conversion
