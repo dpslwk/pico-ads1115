@@ -40,6 +40,13 @@ void ads1115_init(i2c_inst_t *i2c_port, uint8_t i2c_addr,
  * \param adc_value Pointer to a buffer to receive the data
  * \param adc Pointer to the structure that stores the ADS1115 info
  */
+void ads1115_read_last_conversion(uint16_t *adc_value, ads1115_adc_t *adc);
+
+/*! \brief Start a conversion if needed then read the last converted value
+ *
+ * \param adc_value Pointer to a buffer to receive the data
+ * \param adc Pointer to the structure that stores the ADS1115 info
+ */
 void ads1115_read_adc(uint16_t *adc_value, ads1115_adc_t *adc);
 
 /*! \brief Read the 16-bit configuration register
@@ -57,6 +64,15 @@ void ads1115_read_config(ads1115_adc_t *adc);
  */
 void ads1115_write_config(ads1115_adc_t *adc);
 
+/*! \brief Start a single conversion
+ *
+ * Sets the operational status bit to start a single-shot conversion and
+ * writes the configuration register to the device.
+ *
+ * \param adc Pointer to the structure that stores the ADS1115 info
+ */
+void ads1115_start_single_conversion(ads1115_adc_t *adc);
+
 /*! \brief Convert a (raw) ADC value to voltage
  *
  * Converted values are 16-bit two's complement
@@ -65,6 +81,15 @@ void ads1115_write_config(ads1115_adc_t *adc);
  * \param adc Pointer to the structure that stores the ADS1115 info
  */
 float ads1115_raw_to_volts(uint16_t adc_value, ads1115_adc_t *adc);
+
+/*! \brief Convert a (raw) ADC value to millivolts
+ *
+ * Converted values are 16-bit two's complement.
+ *
+ * \param adc_value Raw ADC value to convert
+ * \param adc Pointer to the structure that stores the ADS1115 info
+ */
+int16_t ads1115_raw_to_millivolts(uint16_t adc_value, ads1115_adc_t *adc);
 
 /*! \brief Configure the programmable gain amplifier (PGA)
  *
@@ -113,10 +138,57 @@ void ads1115_set_data_rate(enum ads1115_rate_t rate,
  */
 void ads1115_set_input_mux(enum ads1115_mux_t mux, ads1115_adc_t *adc);
 
-// void set_comparator_mode();
-// void set_comparator_polarity();
-// void set_comparator_latching();
-// void set_comparator_queue();
+/*! \brief Enable or disable comparator latching
+ *
+ * \param latching Set true to enable latching mode, false for non-latching
+ * \param adc Pointer to the structure that stores the ADS1115 info
+ */
+void ads1115_set_comparator_latching(bool latching, ads1115_adc_t *adc);
+
+/*! \brief Configure the comparator queue
+ *
+ * \param queue Comparator queue configuration
+ * \param adc Pointer to the structure that stores the ADS1115 info
+ */
+void ads1115_set_comparator_queue(enum ads1115_comparator_queue_t queue,
+                                  ads1115_adc_t *adc);
+
+/*! \brief Configure the comparator mode
+ *
+ * \param mode Comparator mode configuration
+ * \param adc Pointer to the structure that stores the ADS1115 info
+ */
+void ads1115_set_comparator_mode(enum ads1115_comparator_mode_t mode,
+                                 ads1115_adc_t *adc);
+
+/*! \brief Configure the comparator polarity
+ *
+ * \param polarity Comparator polarity configuration
+ * \param adc Pointer to the structure that stores the ADS1115 info
+ */
+void ads1115_set_comparator_polarity(enum ads1115_comparator_polarity_t polarity,
+                                     ads1115_adc_t *adc);
+
+/*! \brief Configure the comparator threshold window registers
+ *
+ * \param low_threshold Value to write to the low-threshold register
+ * \param high_threshold Value to write to the high-threshold register
+ * \param adc Pointer to the structure that stores the ADS1115 info
+ */
+void ads1115_set_comparator_window(uint16_t low_threshold,
+                                   uint16_t high_threshold,
+                                   ads1115_adc_t *adc);
+
+/*! \brief Enable ALERT/RDY as a conversion-ready pin
+ *
+ * Sets the most-significant bit of the high-threshold register to 1 and
+ * the most-significant bit of the low-threshold register to 0.
+ *
+ * \param queue Comparator queue configuration to apply at the same time
+ * \param adc Pointer to the structure that stores the ADS1115 info
+ */
+void ads1115_set_window_conversion_ready(enum ads1115_comparator_queue_t queue,
+                                         ads1115_adc_t *adc);
 
 #ifdef __cplusplus
 }

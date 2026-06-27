@@ -67,33 +67,33 @@ enum ads1115_rate_t {
 };
 
 // Comparator mode, bit 4
-static const uint16_t ADS1115_COMP_MODE_MASK = 0x0010;
-enum ads1115_comp_mode_t {
+static const uint16_t ADS1115_COMPARATOR_MODE_MASK = 0x0010;
+enum ads1115_comparator_mode_t {
     ADS1115_COMPARATOR_TRADITIONAL = 0x0000, // default
     ADS1115_COMPARATOR_WINDOW = 0x0010
 };
 
 // Comparator polarity, bit 3
-static const uint16_t ADS1115_COMP_POL_MASK = 0x0008;
-enum ads1115_comp_pol_t {
+static const uint16_t ADS1115_COMPARATOR_POLARITY_MASK = 0x0008;
+enum ads1115_comparator_polarity_t {
     ADS1115_COMPARATOR_POLARITY_LO = 0x0000, // default
     ADS1115_COMPARATOR_POLARITY_HI = 0x0008
 };
 
 // Latching comparator, bit 2
-static const uint16_t ADS1115_COMP_LAT_MASK = 0x0004;
-enum ads1115_comp_lat_t {
+static const uint16_t ADS1115_COMPARATOR_LATCHING_MASK = 0x0004;
+enum ads1115_comparator_latching_t {
     ADS1115_COMPARATOR_NONLATCHING = 0x0000, // default
     ADS1115_COMPARATOR_LATCHING = 0x0004
 };
 
 // Comparator queue and disable, bits 1-0
-static const uint16_t ADS1115_COMP_QUE_MASK = 0x0003;
-enum ads1115_comp_que_t {
-    ADS1115_COMPARATOR_QUE_1 = 0x0000,
-    ADS1115_COMPARATOR_QUE_2 = 0x0001,
-    ADS1115_COMPARATOR_QUE_4 = 0x0002,
-    ADS1115_COMPARATOR_QUE_DISABLE = 0x0003 // default
+static const uint16_t ADS1115_COMPARATOR_QUEUE_MASK = 0x0003;
+enum ads1115_comparator_queue_t {
+    ADS1115_COMPARATOR_QUEUE_1 = 0x0000,
+    ADS1115_COMPARATOR_QUEUE_2 = 0x0001,
+    ADS1115_COMPARATOR_QUEUE_4 = 0x0002,
+    ADS1115_COMPARATOR_QUEUE_DISABLE = 0x0003 // default
 };
 
 #endif
